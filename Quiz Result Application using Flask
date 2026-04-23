@@ -1,0 +1,194 @@
+# 🧠 Quiz Result Application using Flask
+
+## 📌 Aim
+
+To design and develop a **Quiz Result Application using Flask** that collects user responses, evaluates them, and displays the final score.
+
+---
+
+## 🧠 Objective
+
+* To understand Flask web framework
+* To handle form data using POST method
+* To implement quiz logic in backend
+* To display dynamic results using templates
+
+---
+
+## 🛠️ Technologies Used
+
+* Python
+* Flask
+* HTML
+* Jinja2 Template Engine
+
+---
+
+## 📂 Project Structure
+
+```id="proj01"
+project/
+│
+├── app.py
+└── templates/
+    ├── quiz.html
+    └── result.html
+```
+
+---
+
+## ⚙️ Backend Code (app.py)
+
+```python id="code01"
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def quiz():
+    return render_template('quiz.html')
+
+@app.route('/result', methods=['POST'])
+def result():
+    score = 0
+
+    # Correct answers
+    answers = {
+        "q1": "A",
+        "q2": "B",
+        "q3": "C"
+    }
+
+    # Compare answers
+    for q in answers:
+        if request.form.get(q) == answers[q]:
+            score += 1
+
+    return render_template('result.html', score=score)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+---
+
+## 📝 quiz.html (Quiz Form)
+
+```html id="code02"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+</head>
+<body>
+
+<h2>Simple Quiz</h2>
+
+<form action="/result" method="POST">
+
+<p>1. What is 2 + 2?</p>
+<input type="radio" name="q1" value="A"> 4<br>
+<input type="radio" name="q1" value="B"> 5<br>
+
+<p>2. Capital of India?</p>
+<input type="radio" name="q2" value="A"> Mumbai<br>
+<input type="radio" name="q2" value="B"> Delhi<br>
+
+<p>3. HTML stands for?</p>
+<input type="radio" name="q3" value="A"> Hyper Tool Markup<br>
+<input type="radio" name="q3" value="B"> Hyperlinks Markup<br>
+<input type="radio" name="q3" value="C"> HyperText Markup Language<br>
+
+<br>
+<input type="submit" value="Submit Quiz">
+
+</form>
+
+</body>
+</html>
+```
+
+---
+
+## 📊 result.html (Result Page)
+
+```html id="code03"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+
+<h2>Your Score: {{score}} / 3</h2>
+
+{% if score == 3 %}
+    <p>Excellent! 🎉</p>
+{% elif score == 2 %}
+    <p>Good Job 👍</p>
+{% else %}
+    <p>Keep Practicing 💪</p>
+{% endif %}
+
+</body>
+</html>
+```
+
+---
+
+## 🔄 Working
+
+1. User opens quiz page
+2. Selects answers
+3. Form sends POST request to Flask
+4. Flask checks answers
+5. Score is calculated
+6. Result is displayed on result page
+
+---
+
+## 🎯 Features
+
+* Simple quiz interface
+* Automatic result calculation
+* Dynamic result display
+* Conditional feedback messages
+
+---
+
+## ⚠️ Limitations
+
+* Static questions only
+* No database storage
+* Basic UI
+
+---
+
+## 🚀 Future Enhancements
+
+* Add more questions dynamically
+* Store results in database
+* Add timer functionality
+* Improve UI using CSS/Bootstrap
+
+---
+
+## 📚 Viva Questions
+
+**Q1. What is Flask?**
+Flask is a lightweight Python web framework used to build web applications.
+
+**Q2. What is POST method?**
+POST is used to send data securely from client to server.
+
+**Q3. What is Jinja2?**
+It is a template engine used in Flask for dynamic HTML rendering.
+
+**Q4. How is score calculated?**
+By comparing user answers with predefined correct answers.
+
+---
+
+## ✅ Conclusion
+
+The Quiz Result Application demonstrates how to handle user input, process logic in Flask, and display dynamic results using templates.
